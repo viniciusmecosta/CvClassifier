@@ -15,10 +15,10 @@ class PdfParserController:
         cvvClassification= pdfParserService.classifyCv(file)
         
         result= ClassifyOutput(**{
-            "cv_class": cvvClassification,
-            "cv_class_prob": "Not implemented",
-            "cv_level": "Not implemented",
-            "cv_level_prob": "Not implemented",
+            "cv_class": cvvClassification.cv_class,
+            "cv_class_prob": cvvClassification.cv_class_prob,
+            "cv_level": cvvClassification.cv_level,
+            "cv_level_prob": cvvClassification.cv_level_prob,
         })
 
         logger.info('Returning data')
