@@ -1,79 +1,133 @@
+Here’s a refined and more polished presentation of your document:
+
+---
+
 # Curriculum Classifier
-## REST API for classifying curricula using machine learning algorithms
 
-![](https://irede.org.br/assets/logo_irede_home-VlpXW9hL.png)
+## REST API for Classifying Curricula Using Machine Learning Algorithms
 
-The project showcases a rest api that recceives a pdf curriculum and returns the field of ocupation and the level of seniority, along side with the acuracy for each; The machine learning model was trained with 26 areas of ocupation and over 3,000 curricula.
+![Logo](https://irede.org.br/assets/logo_irede_home-VlpXW9hL.png)
 
-## Getting started
-After cloning the repository run:
-```sh
-pip install < requirements.txt
-fastapi dev server.py
-```
+This project demonstrates a REST API that processes PDF resumes to return the field of occupation and seniority level, along with the accuracy of the classification. The machine learning model was trained with 26 occupation categories and over 3,000 resumes.
 
-## Docs
-After running the project locally the documentation is available on:
+---
 
-```sh
-127.0.0.1:8000/docs
-```
+## Features
+
+- **PDF Processing**: Extracts text from PDF resumes with high efficiency.
+- **Machine Learning Classification**: Classifies resumes into 26 occupation fields and multiple levels of seniority.
+- **REST API**: Provides a simple API for integration with other systems.
+- **Model Persistence**: Uses `joblib` to save and load trained models for deployment.
+- **Comprehensive Documentation**: Includes API documentation and performance benchmarks.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Python 3.8 or higher
+- Pip (Python package manager)
+
+### Installation
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/viniciusmecosta/cvClassifier.git
+   cd cvClassifier
+   ```
+
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the API**:
+   ```bash
+   uvicorn server:app --reload
+   ```
+
+4. **Access the API**:
+   - The API will be available at `http://127.0.0.1:8000`.
+   - Interactive API documentation (Swagger UI) is available at `http://127.0.0.1:8000/docs`.
+
+---
 
 ## Dataset
-This is a custom dataset tailored for this usecase:
-https://www.kaggle.com/datasets/danicardeal/resume-occupation-and-seniority
 
-## Benchmarks and algorithms comparison
+The model was trained on a custom dataset tailored for this use case. You can find the dataset on Kaggle:
+
+[Resume Occupation and Seniority Dataset](https://www.kaggle.com/datasets/danicardeal/resume-occupation-and-seniority)
+
+---
+
+## Benchmarks and Algorithms Comparison
 
 ### PDF Extraction Libraries Benchmark
+
 ![PDF Extraction Libraries Benchmark](metadata/img/pdf_libs.png)
-- **Benchmark: Time** taken to process all PDFs in the dataset.
-- **Libraries evaluated**: Tika, PyMuPDF, Textract, Pypdfium2
-- **Library chosen**: Pdftotext
+
+- **Benchmark**: Time taken to process all PDFs in the dataset.
+- **Libraries Evaluated**: Tika, PyMuPDF, Textract, Pypdfium2.
+- **Library Chosen**: `pdftotext` for superior performance in processing time.
 
 ### Classification of Seniority and Area of Expertise
 
 #### Seniority Classification
-For training the seniority classifier, the text field and the seniority field from the CSV were used.
+The seniority classifier was trained using text and seniority fields from the dataset.
 
 #### Area of Expertise Classification
-For the area of expertise classifier, the class number and text fields were utilized.
+The area of expertise classifier was trained using both the class number and text fields.
+
+---
 
 ## Preprocessing
-In the preprocessing phase, the following steps were implemented:
 
-- **Spacy**
+The following preprocessing steps were implemented:
+
+- **Spacy**:
   - Stopwords Removal
   - Lemmatization
   - Tokenization
   - Large model used: `en_core_web_lg`
 
-- **Re**
+- **Re**:
   - Removal of hyperlinks
 
-- **CSV**
-  - Mapping of area of expertise classifications to numerical values for training purposes.
+- **CSV**:
+  - Mapping of area of expertise classifications to numerical values for training.
 
-- **Models evaluated**:
-  - Logistic Regression
-  - Support Vector Machine
-  - Random Forest
-  - k-Nearest Neighbors 
-  - Bernoulli Naive Bayes
-  - Naive Bayes
-  - CatBoost
-  - XGBoost
+---
 
-- **Model chosen**: XGBoost with parameters
+## Model Evaluation and Selection
+
+### Models Evaluated
+- Logistic Regression
+- Support Vector Machine
+- Random Forest
+- k-Nearest Neighbors
+- Bernoulli Naive Bayes
+- Naive Bayes
+- CatBoost
+- XGBoost
+
+### Model Chosen
+**XGBoost** was selected for its superior performance in both seniority and area of expertise classification.
+
+---
 
 ## Vectorizer and Model Persistence
 
-The data was vectorized using the `CountVectorizer` from sklearn. The trained model was exported and loaded using `joblib` for deployment and inference.
+- **Vectorizer**: `CountVectorizer` from `sklearn` was used to vectorize the text data.
+- **Model Persistence**: The trained model was exported and loaded using `joblib` for deployment and inference.
+
+---
+
+## Results
 
 ### Accuracies
 
 #### Seniority Accuracy
-
 ![Seniority Accuracy](metadata/img/accuracies_senior.png)
 
 #### Area of Expertise Accuracy
@@ -87,22 +141,26 @@ The data was vectorized using the `CountVectorizer` from sklearn. The trained mo
 #### Confusion Matrix for Seniority
 ![Confusion Matrix for Seniority](metadata/img/confusion_matrix_senior.png)
 
+---
+
 ## Conclusion
 
-This project demonstrates a robust proof of concept for a REST API capable of classifying curricula into specific fields of occupation and levels of seniority using machine learning algorithms. The model, trained on a custom dataset with over 3,000 resumes spanning 26 areas of occupation, achieves accurate classifications while providing valuable insights into the efficacy of various PDF extraction libraries and machine learning models.
+This project demonstrates a solid proof of concept for a REST API that classifies resumes into specific fields of occupation and levels of seniority using machine learning algorithms. Trained on a custom dataset of over 3,000 resumes spanning 26 occupations, the model provides accurate classifications while offering valuable insights into PDF extraction libraries and machine learning models.
 
 ### Key Takeaways
 
-1. **Effective PDF Processing**: After evaluating multiple libraries for PDF extraction, `pdftotext` was selected for its superior performance in terms of processing time.
+1. **Effective PDF Processing**: After evaluating multiple libraries for PDF extraction, `pdftotext` was chosen for its superior performance.
    
-2. **Comprehensive Preprocessing**: Utilizing `Spacy` for text processing (stopwords removal, lemmatization, and tokenization) and `Re` for hyperlink removal ensured clean and relevant data for model training.
+2. **Comprehensive Preprocessing**: Text processing using `Spacy` (stopwords removal, lemmatization, tokenization) and hyperlink removal with `Re` ensured clean, relevant data for training.
 
-3. **Model Evaluation and Selection**: Among the evaluated models, XGBoost emerged as the best performer, providing high accuracy in both seniority and area of expertise classifications.
+3. **Model Evaluation and Selection**: Among the evaluated models, XGBoost delivered the best results, offering high accuracy in both seniority and area of expertise classifications.
 
-4. **Data Vectorization and Persistence**: The use of `CountVectorizer` for data vectorization and `joblib` for model persistence streamlined the deployment and inference process, making the system efficient and scalable.
+4. **Data Vectorization and Persistence**: The use of `CountVectorizer` for vectorization and `joblib` for model persistence streamlined deployment and inference, ensuring scalability and efficiency.
 
-5. **Accuracy and Performance**: The achieved accuracies and confusion matrices for both seniority and area of expertise classifications highlight the model's effectiveness and reliability.
+5. **Accuracy and Performance**: The accuracies and confusion matrices demonstrate the model's effectiveness and reliability in both seniority and area of expertise classifications.
 
-This project not only showcases the potential for automated resume classification but also serves as an excellent learning experience in handling real-world data, evaluating multiple libraries and models, and implementing a complete machine learning pipeline from data preprocessing to deployment.
+This project highlights the potential of automated resume classification and provides a comprehensive learning experience in handling real-world data, evaluating multiple libraries, and implementing a complete machine learning pipeline.
+
+---
 
 **Free Software, Hell Yeah!**
